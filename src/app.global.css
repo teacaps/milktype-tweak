@@ -2,8 +2,8 @@
 Explicitly import the missing arrows.
 See https://stackoverflow.com/questions/40822458/styled-unicode-arrows-not-showing-up-with-google-fonts-web-font
  */
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans&text=%E2%86%90|%E2%86%92');
+@import url('https://fonts.googleapis.com/css?family=Figtree');
+@import url('https://fonts.googleapis.com/css?family=Figtree&text=%E2%86%90|%E2%86%92');
 
 html,
 body {
@@ -17,7 +17,7 @@ body {
   position: relative;
   color: white;
   background-color: #232c39;
-  font-family: 'Fira Sans', Helvetica, Helvetica Neue, Arial, serif;
+  font-family: Figtree, Helvetica, Helvetica Neue, Arial, serif;
   font-weight: 300;
   overflow: hidden;
   margin: 0;
@@ -25,7 +25,7 @@ body {
   user-select: none;
 }
 button {
-  font-family: 'Fira Sans', Helvetica, Helvetica Neue, Arial, serif;
+  font-family: Figtree, Helvetica, Helvetica Neue, Arial, serif;
   font-weight: 300;
 }
 h2 {
@@ -67,27 +67,37 @@ a:hover {
     inset 1px 1px 0 rgb(255 255 255 / 20%);
   --box-shadow-keyboard: var(--box-shadow-keycap);
 
+  --color-white-60: #F8E3D8;
+  --color-white-80: #FDF3EF;
+  --color-white-100: #FEFDFC;
+
+  --color-dark-100: #645A57;
+  --color-dark-120: #3E3734;
+
+  --color-accent-100: #E2794C;
+  --color-accent-80: #F4B499;
+  --color-accent-60: #F1C2AE;
 }
 
-html[data-theme-mode='dark'] {
-  --color_label: var(--color_medium-grey);
-  --color_label-highlighted: var(--color_light-grey);
-  --color_error: var(--color_error);
-  --border_color_icon: var(--color_medium-grey);
-  --border_color_cell: var(--color_dark-grey);
-  --bg_icon: var(--color_medium-grey);
-  --bg_icon-highlighted: var(--color_light-grey);
-  --color_icon-highlighted: var(--color_jet);
-  --bg_menu: var(--color_light-jet);
-  --color_control: var(--color_dark-grey);
-  --bg_control: var(--color_dark-grey);
-  --bg_outside-accent: var(--color_dark-grey);
-  --bg_control_disabled: var(--color_dark-grey);
-  --bg_control-highlighted: var(--color_light-grey);
-  --bg_gradient: linear-gradient(var(--color_jet), var(--color_light-jet));
-  --bg_control-disabled: transparent;
-}
-html[data-theme-mode='light'] {
+/*html[data-theme-mode='dark'] {*/
+/*  --color_label: var(--color_medium-grey);*/
+/*  --color_label-highlighted: var(--color_light-grey);*/
+/*  --color_error: var(--color_error);*/
+/*  --border_color_icon: var(--color_medium-grey);*/
+/*  --border_color_cell: var(--color_dark-grey);*/
+/*  --bg_icon: var(--color_medium-grey);*/
+/*  --bg_icon-highlighted: var(--color_light-grey);*/
+/*  --color_icon-highlighted: var(--color_jet);*/
+/*  --bg_menu: var(--color_light-jet);*/
+/*  --color_control: var(--color_dark-grey);*/
+/*  --bg_control: var(--color_dark-grey);*/
+/*  --bg_outside-accent: var(--color_dark-grey);*/
+/*  --bg_control_disabled: var(--color_dark-grey);*/
+/*  --bg_control-highlighted: var(--color_light-grey);*/
+/*  --bg_gradient: linear-gradient(var(--color_jet), var(--color_light-jet));*/
+/*  --bg_control-disabled: transparent;*/
+/*}*/
+html {
   --color_label: var(--color_medium-grey);
   --color_label-highlighted: var(--color_light-jet);
   --color_error: var(--color_error);
@@ -99,14 +109,11 @@ html[data-theme-mode='light'] {
   --bg_menu: var(--color_tinge-light);
   --color_control: var(--color_tinge-light);
   --color_control-disabled: var(--color_tinge-light);
-  --bg_control: var(--color_tinge);
+  --bg_control: var(--color-white-60);
   --bg_outside-accent: var(--color_tinge-light);
   --bg_control-highlighted: var(--color_warm-white);
   --bg_control-disabled: transparent;
-  --bg_gradient: linear-gradient(
-    var(--color_tinge-light),
-    var(--color_warm-white)
-  );
+  --bg_gradient: var(--color-white-100);
 }
 
 #root {

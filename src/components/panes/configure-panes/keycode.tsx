@@ -272,7 +272,8 @@ export const KeycodePane: FC = () => {
   };
 
   const renderKeycode = (keycode: IKeycode, index: number) => {
-    const {code, title, name} = keycode;
+    const {code, title, name, shortName} = keycode;
+    const content = (shortName || name).toLowerCase();
     return (
       <Keycode
         key={code}
@@ -281,7 +282,7 @@ export const KeycodePane: FC = () => {
         onMouseOver={() => setMouseOverDesc(title ? `${code}: ${title}` : code)}
         onMouseOut={() => setMouseOverDesc(null)}
       >
-        <KeycodeContent>{name}</KeycodeContent>
+        <KeycodeContent>{content}</KeycodeContent>
       </Keycode>
     );
   };

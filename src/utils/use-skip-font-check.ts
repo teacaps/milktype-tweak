@@ -9,7 +9,7 @@ export function useSkipFontCheck() {
     setShouldSkipFontCheck(true);
   }, []);
   useEffect(() => {
-    document.fonts.load('Fira Sans').then(allowFontCheck, skipFontCheck);
+    document.fonts.load('Figtree').then(allowFontCheck, skipFontCheck);
   }, []);
   return shouldSkipFontCheck;
 }

@@ -106,7 +106,7 @@ export const CanvasRouter = () => {
   const hideTerrainBG = showLoader;
   useEffect(() => {
     // Block rendering due to font legend being required to render keyboardss
-    document.fonts.load('bold 16px Fira Sans').finally(() => {
+    document.fonts.load('500 16pxFigtree').finally(() => {
       setLoaded(true);
     });
   }, []);
