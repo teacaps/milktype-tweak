@@ -9,6 +9,20 @@ export type Theme = {
 
 export const THEMES = {
   ...{
+    MILKTYPE: {
+      alpha: {
+        c: '#F8E3D8',
+        t: '#3E3734'
+      },
+      mod: {
+        c: '#F8E3D8',
+        t: '#3E3734'
+      },
+      accent: {
+        c: '#F8E3D8',
+        t: '#3E3734'
+      }
+    },
     OLIVIA_DARK: {
       alpha: {
         c: '#363434',
