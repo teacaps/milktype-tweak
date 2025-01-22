@@ -17,7 +17,7 @@ const CharacterStreamContainer = styled.div`
   &:focus-within {
     border-color: var(--color_accent);
   }
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 16px;
 `;
 
@@ -30,7 +30,7 @@ const KeycodeSequenceLabel = styled.div`
   min-width: 30px;
   font-size: 12px;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 8px;
   justify-content: center;
   align-items: center;
   white-space: pre-wrap;

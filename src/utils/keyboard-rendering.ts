@@ -26,9 +26,9 @@ import {
 
 export const CSSVarObject = {
   keyWidth: 52,
-  keyXSpacing: 2,
+  keyXSpacing: 6,
   keyHeight: 54,
-  keyYSpacing: 2,
+  keyYSpacing: 6,
   keyXPos: 52 + 2,
   keyYPos: 54 + 2,
   faceXPadding: [6, 6],
@@ -112,7 +112,8 @@ export function calculatePointPosition({
   const xPos =
     CSSVarObject.keyXPos * (x + x2) +
     (Math.max(w2, w) * CSSVarObject.keyWidth) / 2 +
-    ((Math.max(w2, w) - 1) * CSSVarObject.keyXSpacing) / 2;
+    ((Math.max(w2, w) - 1) * (CSSVarObject.keyXSpacing - 4)) / 2;
+
   const yPos =
     CSSVarObject.keyYPos * y +
     (h * CSSVarObject.keyHeight) / 2 +

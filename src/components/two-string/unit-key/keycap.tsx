@@ -380,7 +380,7 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
               : '',
             background: getDarkenedColor(props.color.c, 0.8),
             transform: `perspective(100px) translateZ(${keycapZ}px)`,
-            borderRadius: 3,
+            borderRadius: 12/*h*/,
             width:
               textureWidth * CSSVarObject.keyXPos - CSSVarObject.keyXSpacing,
             height:
@@ -397,7 +397,7 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
           ) : null}
           <CanvasContainer
             style={{
-              borderRadius: 4,
+              borderRadius: 12/*h*/,
               background: props.color.c,
               height: '100%',
             }}
@@ -419,10 +419,7 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
 
 const GlowContainer = styled.div<{$selected: boolean}>`
   box-sizing: border-box;
-  padding: 2px 6px 10px 6px;
   transition: transform 0.2s ease-out;
-  box-shadow: inset -1px -1px 0 rgb(0 0 0 / 20%),
-    inset 1px 1px 0 rgb(255 255 255 / 20%);
   animation: ${(p) =>
     p.$selected ? '.75s infinite alternate select-glow' : 'initial'};
   &:hover {

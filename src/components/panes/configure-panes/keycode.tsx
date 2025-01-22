@@ -62,7 +62,6 @@ const Keycode = styled(Button)<{disabled: boolean}>`
   line-height: 18px;
   border-radius: 64px;
   font-size: 14px;
-  border: 4px solid var(--border_color_icon);
   background: var(--bg_control);
   color: var(--color_label-highlighted);
   margin: 0;
@@ -87,7 +86,6 @@ const CustomKeycode = styled(Button)`
   line-height: 18px;
   border-radius: 10px;
   font-size: 14px;
-  border: 4px solid var(--border_color_icon);
   background: var(--color_accent);
   border-color: var(--color_inside_accent);
   color: var(--color_inside_accent);

@@ -5,7 +5,6 @@ export const Button = styled.div`
   transition: transform 0.2s ease-out;
   user-select: none;
   color: #717070;
-  border: 1px #717070 solid;
   width: 45px;
   height: 45px;
   padding: 2px;
@@ -15,7 +14,7 @@ export const Button = styled.div`
   cursor: pointer;
   font-size: 12px;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 8px;
   justify-content: center;
   align-items: center;
   white-space: pre-wrap;
