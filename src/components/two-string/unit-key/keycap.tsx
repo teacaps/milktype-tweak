@@ -368,12 +368,6 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
         <GlowContainer
           $selected={selected}
           style={{
-            animation: disabled
-              ? 'initial' // This prevents the hover animation from firing when the keycap can't be interacted with
-              : selected
-                ? '.75s infinite alternate select-glow'
-                : '',
-            background: getDarkenedColor(props.color.c, 0.8),
             transform: `perspective(100px) translateZ(${keycapZ}px)`,
             borderRadius: 12 /*h*/,
             width:
@@ -393,8 +387,11 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
           <CanvasContainer
             style={{
               borderRadius: 12 /*h*/,
-              background: props.color.c,
+              background: selected ? 'var(--color-accent-60)' : props.color.c,
               height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <canvas ref={canvasRef} style={{}} />
@@ -414,11 +411,10 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
 
 const GlowContainer = styled.div<{$selected: boolean}>`
   box-sizing: border-box;
-  transition: transform 0.2s ease-out;
-  animation: ${(p) =>
-    p.$selected ? '.75s infinite alternate select-glow' : 'initial'};
+  background: ${(p) => p.$selected && 'var(--color-accent-80)'};
+  border: ${(p) => p.$selected && '3px solid var(--color-accent-100)'};
+  transition: background-color 0.2s ease-out;
   &:hover {
-    transform: perspective(100px) translateZ(-5px);
-    animation: 0.5s 1 forwards select-glow;
+    background: var(--color-accent-60);
   }
 `;
