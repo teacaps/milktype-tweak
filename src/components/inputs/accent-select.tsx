@@ -43,8 +43,7 @@ const customStyles = {
     color: 'var(--color_accent)',
   }),
   indicatorSeparator: (provided: any) => ({
-    ...provided,
-    backgroundColor: 'var(--color_accent)',
+    display: 'none',
   }),
   menuList: (provided: any) => ({
     ...provided,
@@ -81,7 +80,8 @@ const customStyles = {
         borderColor: 'var(--color_accent)',
       },
       color: 'var(--color_accent)',
-      borderColor: '1px solid var(--color_accent)',
+      borderColor: 'var(--color_accent)',
+      borderWidth: 2,
       background: 'var(--color-white-60)',
       overflow: 'hidden',
       width: state.selectProps.width || 250,
