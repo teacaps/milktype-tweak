@@ -5,40 +5,32 @@ export const Grid = styled.div`
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: min-content min-content minmax(0, 1fr);
+  grid-template-columns: min-content minmax(0, 1fr);
   > div {
     pointer-events: all;
   }
 `;
 
-export const Cell = styled.div`
-  border-right: 1px solid var(--border_color_cell);
-`;
+export const Cell = styled.div``;
 
-export const MenuCell = styled(Cell)`
-  background: var(--bg_menu);
-  border-top: 1px solid var(--border_color_cell);
-`;
+export const MenuCell = styled(Cell)``;
 
 export const OverflowCell = styled(Cell)`
-  border-top: 1px solid var(--border_color_cell);
   overflow: auto;
 `;
 
 export const SpanOverflowCell = styled(Cell)`
-  border-top: 1px solid var(--border_color_cell);
   overflow: auto;
   grid-column: span 2;
 `;
 
 export const SubmenuCell = styled(Cell)`
-  border-top: 1px solid var(--border_color_cell);
-  background: var(--bg_control);
+  padding: 0 2em;
 `;
 
 export const SubmenuOverflowCell = styled(SubmenuCell)`
   min-width: 80px;
-  overflow: auto;
+  overflow: visible;
 `;
 
 export const SinglePaneFlexCell = styled(Cell)`
@@ -95,7 +87,6 @@ export const ControlRow = styled.div`
   position: relative;
   width: 100%;
   max-width: 960px;
-  border-bottom: 1px solid var(--border_color_cell);
   font-size: 20px;
   justify-content: space-between;
   display: flex;
@@ -104,6 +95,7 @@ export const ControlRow = styled.div`
   box-sizing: border-box;
   padding-left: 5px;
   padding-right: 5px;
+  text-transform: lowercase;
 `;
 
 export const IndentedControlRow = styled(ControlRow)`
@@ -133,17 +125,16 @@ export const Row = styled.div<{$selected: boolean}>`
   margin-bottom: 15px;
   font-size: 20px;
   line-height: 20px;
-  text-transform: uppercase;
+  text-transform: lowercase;
   color: ${(props) => getIconColor(props.$selected).style.color};
-  border-left: 2px solid transparent;
 
   svg {
-    height: 20px;
+    height: 1.5rem;
     vertical-align: middle;
   }
 
   &:hover {
-    color: var(--color_label-highlighted);
+    color: var(--color-accent-80);
     & .tooltip {
       transform: scale(1) translateX(0px);
       opacity: 1;
@@ -156,13 +147,11 @@ export const Row = styled.div<{$selected: boolean}>`
 `;
 
 export const SubmenuRow = styled(Row)`
-  background: ${(props) => (props.$selected ? 'var(--bg_icon)' : 'inherit')};
   padding: 4px 8px;
   font-weight: 400;
   min-width: min-content;
   border-color: transparent;
   margin-bottom: 11px;
   color: ${(props) =>
-    props.$selected ? 'var(--color_label-highlighted)' : 'var(--color_label)'};
-  border-radius: 12px;
+    props.$selected ? 'var(--color-accent-100)' : 'var(--color-dark-100)'};
 `;

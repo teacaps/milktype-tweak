@@ -42,8 +42,8 @@ export const ComboKeycap = (props: any) => {
             animation: props.disabled
               ? 'initial' // This prevents the hover animation from firing when the keycap can't be interacted with
               : props.selected
-              ? '.75s infinite alternate select-glow'
-              : '',
+                ? '.75s infinite alternate select-glow'
+                : '',
             transform: `translateX(${
               (-Math.abs(r1[0] - r2[0]) * CSSVarObject.keyXPos) / 2
             }px) perspective(100px) translateZ(${props.keycapZ}px)`,
@@ -59,8 +59,8 @@ export const ComboKeycap = (props: any) => {
           <ComboKeyRectContainer
             style={{
               position: 'absolute',
-              borderRadius: 12/*h*/,
-              background: getDarkenedColor(props.color.c, 0.8),
+              borderRadius: 12 /*h*/,
+              background: props.color.c,
               transform: `translate(${CSSVarObject.keyXPos * r1[0]}px,${
                 CSSVarObject.keyYPos * r1[1]
               }px)`,
@@ -71,11 +71,11 @@ export const ComboKeycap = (props: any) => {
           <ComboKeyRectContainer
             style={{
               position: 'absolute',
-              borderRadius: 3,
+              borderRadius: 12,
               transform: `translate(${CSSVarObject.keyXPos * r2[0]}px,${
                 CSSVarObject.keyYPos * r2[1]
               }px)`,
-              background: getDarkenedColor(props.color.c, 0.8),
+              background: props.color.c,
               width: r2[2] * CSSVarObject.keyXPos - CSSVarObject.keyXSpacing,
               height: r2[3] * CSSVarObject.keyYPos - CSSVarObject.keyYSpacing,
             }}
@@ -83,8 +83,8 @@ export const ComboKeycap = (props: any) => {
           <ComboKeyBGContainer
             style={{
               position: 'absolute',
-              borderRadius: 3,
-              background: getDarkenedColor(props.color.c, 0.8),
+              borderRadius: 12,
+              background: props.color.c,
               transform: `translate(${CSSVarObject.keyXPos * r1[0] + 1}px,${
                 1 + CSSVarObject.keyYPos * r1[1]
               }px)`,
@@ -96,7 +96,7 @@ export const ComboKeycap = (props: any) => {
           />
           <CanvasContainer
             style={{
-              borderRadius: 12/*h*/,
+              borderRadius: 12 /*h*/,
               background: props.color.c,
               position: 'absolute',
               transform: `translate(${
@@ -118,7 +118,7 @@ export const ComboKeycap = (props: any) => {
           />
           <CanvasContainer
             style={{
-              borderRadius: 12/*h*/,
+              borderRadius: 12 /*h*/,
               background: props.color.c,
               position: 'absolute',
               transform: `translate(${
@@ -140,12 +140,10 @@ export const ComboKeycap = (props: any) => {
           />
           <CanvasContainerBG
             style={{
-              borderRadius: 12/*h*/,
+              borderRadius: 12 /*h*/,
               background: props.color.c,
               position: 'absolute',
-              transform: `translate(${
-                1 + CSSVarObject.keyXPos * r1[0] + CSSVarObject.faceXPadding[0]
-              }px,${
+              transform: `translate(${1 + CSSVarObject.keyXPos * r1[0]}px,${
                 1 + CSSVarObject.faceYPadding[0] + CSSVarObject.keyYPos * r1[1]
               }px)`,
               width:

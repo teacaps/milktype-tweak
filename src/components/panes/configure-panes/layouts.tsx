@@ -1,10 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import {title, component} from '../../icons/layouts';
-import {ControlRow, SpanOverflowCell, Label, Detail} from '../grid';
+import {
+  ControlRow,
+  Label,
+  Detail,
+  OverflowCell,
+  SubmenuOverflowCell,
+} from '../grid';
 import {AccentSlider} from '../../inputs/accent-slider';
 import {AccentSelect} from '../../inputs/accent-select';
-import {CenterPane} from '../pane';
+import {CenterPane, PaneSelector} from '../pane';
 import {
   getSelectedDefinition,
   getSelectedLayoutOptions,
@@ -13,6 +19,7 @@ import {
 import {useAppDispatch, useAppSelector} from 'src/store/hooks';
 import type {LayoutLabel} from '@the-via/reader';
 import type {FC} from 'react';
+import {LayoutsIcon} from '../../icons/milktype/index';
 
 const LayoutControl: React.FC<{
   onChange: (val: any) => void;
@@ -84,23 +91,28 @@ export const Pane: FC = () => {
 
   const labels = layouts.labels || [];
   return (
-    <SpanOverflowCell>
-      <ContainerPane>
-        <Container>
-          {labels.map((label: LayoutLabel, idx: number) => (
-            <LayoutControl
-              key={idx}
-              onChange={(val) => dispatch(updateLayoutOption(idx, val))}
-              meta={{
-                labels: label,
-                selectedOption: selectedLayoutOptions[idx],
-              }}
-            />
-          ))}
-        </Container>
-      </ContainerPane>
-    </SpanOverflowCell>
+    <>
+      <SubmenuOverflowCell>
+        <PaneSelector />
+      </SubmenuOverflowCell>
+      <OverflowCell>
+        <ContainerPane>
+          <Container>
+            {labels.map((label: LayoutLabel, idx: number) => (
+              <LayoutControl
+                key={idx}
+                onChange={(val) => dispatch(updateLayoutOption(idx, val))}
+                meta={{
+                  labels: label,
+                  selectedOption: selectedLayoutOptions[idx],
+                }}
+              />
+            ))}
+          </Container>
+        </ContainerPane>
+      </OverflowCell>
+    </>
   );
 };
 export const Title = title;
-export const Icon = component;
+export const Icon = LayoutsIcon;

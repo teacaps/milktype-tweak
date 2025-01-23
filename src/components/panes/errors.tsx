@@ -37,10 +37,6 @@ const Container = styled.div`
   flex-direction: column;
   padding: 16px;
   user-select: text;
-  border-top: 1px solid var(--color_accent);
-  &:last-of-type {
-    border-bottom: 1px solid var(--color_accent);
-  }
 `;
 
 const printId = (id: number) => formatNumberAsHex(id, 4);

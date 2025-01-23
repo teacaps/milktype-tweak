@@ -31,16 +31,6 @@ export const Keycap2DTooltip: React.FC<PropsWithChildren> = (props) => {
         zIndex: 5,
         transform: 'translateX(-50%)',
       },
-      pointerStyles: {
-        borderStyle: 'solid',
-        borderColor: 'transparent',
-        borderLeft: '6px solid transparent',
-        borderRight: '6px solid transparent',
-        borderTop: `6px solid var(--color_accent)`,
-        position: 'absolute',
-        marginLeft: -6,
-        width: 0,
-      },
     }),
     [],
   );
@@ -49,7 +39,6 @@ export const Keycap2DTooltip: React.FC<PropsWithChildren> = (props) => {
       {...props}
       containerStyles={styles.containerStyles}
       contentStyles={styles.contentStyles}
-      pointerStyles={styles.pointerStyles}
     />
   );
 };
@@ -78,13 +67,6 @@ export const KeycapTooltip: React.FC<any> = (props) => {
         alignItems: 'center',
         fontWeight: 'bold',
       },
-      pointerStyles: {
-        height: 150,
-        width: 150,
-        marginTop: -100,
-        transform: 'rotate(45deg)',
-        background: 'var(--color_accent)',
-      },
     }),
     [],
   );
@@ -93,7 +75,6 @@ export const KeycapTooltip: React.FC<any> = (props) => {
       {...props}
       containerStyles={styles.containerStyles}
       contentStyles={styles.contentStyles}
-      pointerStyles={styles.pointerStyles}
     />
   );
 };
@@ -129,17 +110,6 @@ export const CategoryMenuTooltip: React.FC<any> = (props) => {
         transform: 'translateX(-50%)',
         marginLeft: 18,
       },
-      pointerStyles: {
-        borderStyle: 'solid',
-        borderColor: 'transparent',
-        borderLeft: '6px solid transparent',
-        borderRight: '6px solid transparent',
-        borderBottom: `6px solid var(--color_accent)`,
-        position: 'absolute',
-        marginLeft: 15,
-        marginTop: -41,
-        width: 0,
-      },
     }),
     [],
   );
@@ -148,7 +118,6 @@ export const CategoryMenuTooltip: React.FC<any> = (props) => {
       {...props}
       containerStyles={styles.containerStyles}
       contentStyles={styles.contentStyles}
-      pointerStyles={styles.pointerStyles}
     />
   );
 };
@@ -200,7 +169,6 @@ export const ProgressBarTooltip: React.FC<any> = (props) => {
       {...props}
       containerStyles={styles.containerStyles}
       contentStyles={styles.contentStyles}
-      pointerStyles={styles.pointerStyles}
     />
   );
 };
@@ -209,7 +177,7 @@ export const IconButtonTooltip: React.FC<any> = (props) => {
     () => ({
       containerStyles: {
         position: 'absolute',
-        top: 50,
+        top: 40,
         left: 0,
         transformOrigin: 'left',
         transition: 'all 0.1s ease-in-out',
@@ -230,21 +198,10 @@ export const IconButtonTooltip: React.FC<any> = (props) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        textTransform: 'uppercase',
+        textTransform: 'lowercase',
         zIndex: 5,
         transform: 'translateX(-50%)',
         marginLeft: 18,
-      },
-      pointerStyles: {
-        borderStyle: 'solid',
-        borderColor: 'transparent',
-        borderLeft: '6px solid transparent',
-        borderRight: '6px solid transparent',
-        borderBottom: `6px solid var(--color_inside-accent)`,
-        position: 'absolute',
-        marginLeft: 15,
-        marginTop: -41,
-        width: 0,
       },
     }),
     [],
@@ -254,7 +211,6 @@ export const IconButtonTooltip: React.FC<any> = (props) => {
       {...props}
       containerStyles={styles.containerStyles}
       contentStyles={styles.contentStyles}
-      pointerStyles={styles.pointerStyles}
     />
   );
 };
@@ -286,17 +242,6 @@ export const MenuTooltip: React.FC<any> = (props) => {
         alignItems: 'center',
         zIndex: 5,
       },
-      pointerStyles: {
-        borderStyle: 'solid',
-        borderColor: 'transparent',
-        borderTop: '6px solid transparent',
-        borderBottom: '6px solid transparent',
-        borderRight: `6px solid var(--color_inside-accent)`,
-        position: 'absolute',
-        marginLeft: -9,
-        marginTop: -21,
-        width: 0,
-      },
     }),
     [],
   );
@@ -305,17 +250,15 @@ export const MenuTooltip: React.FC<any> = (props) => {
       {...props}
       containerStyles={styles.containerStyles}
       contentStyles={styles.contentStyles}
-      pointerStyles={styles.pointerStyles}
     />
   );
 };
 
 export const Tooltip: React.FC<any> = (props) => {
-  const {containerStyles, contentStyles, pointerStyles} = props;
+  const {containerStyles, contentStyles} = props;
   return (
     <div style={containerStyles} className={'tooltip'}>
       <div style={contentStyles}>{props.children}</div>
-      <div style={pointerStyles}></div>
     </div>
   );
 };

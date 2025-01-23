@@ -29,8 +29,8 @@ const getMacroData = ({
   label && label.length > 15
     ? label
     : macroExpression && macroExpression.length
-    ? macroExpression
-    : null;
+      ? macroExpression
+      : null;
 
 const paintDebugLines = (canvas: HTMLCanvasElement) => {
   const context = canvas.getContext('2d');
@@ -69,12 +69,8 @@ const paintKeycapLabel = (
 
   context.scale(dpi, dpi);
 
-  const fontFamily =
-    'Figtree, Arial Rounded MT, Arial Rounded MT Bold, Arial';
+  const fontFamily = 'Figtree, Arial Rounded MT, Arial Rounded MT Bold, Arial';
   context.font = `500 ${fontSize}px ${fontFamily}`;
-
-  // Margins from face edge to where text is drawn
-  const centerLabelMargin = {x: 3, y: 0};
 
   // Define a clipping path for the top face, so text is not drawn on the side.
   context.beginPath();
@@ -91,48 +87,43 @@ const paintKeycapLabel = (
     const gapBetweenLabels = 1.25 * fontHeight;
 
     const topLabelMetrics = context.measureText(label.topLabel.toLowerCase());
-    const bottomLabelMetrics = context.measureText(label.bottomLabel.toLowerCase());
+    const bottomLabelMetrics = context.measureText(
+      label.bottomLabel.toLowerCase(),
+    );
 
-    const totalLabelHeight = topLabelMetrics.actualBoundingBoxAscent + bottomLabelMetrics.actualBoundingBoxAscent + gapBetweenLabels;
+    const totalLabelHeight =
+      topLabelMetrics.actualBoundingBoxAscent +
+      bottomLabelMetrics.actualBoundingBoxAscent +
+      gapBetweenLabels;
     const yMargin = (canvasHeight - totalLabelHeight) / 2;
 
     const topLabelOffsets: [number, number] = [
       canvasWidth / 2 - topLabelMetrics.width / 2,
       yMargin + topLabelMetrics.actualBoundingBoxAscent,
-    ]
+    ];
     const bottomLabelOffsets: [number, number] = [
       canvasWidth / 2 - bottomLabelMetrics.width / 2,
-      yMargin + totalLabelHeight
-    ]
+      yMargin + totalLabelHeight,
+    ];
 
-    context.fillText(
-      label.topLabel.toLowerCase(),
-      ...topLabelOffsets,
-    );
-    context.fillText(
-      label.bottomLabel.toLowerCase(),
-      ...bottomLabelOffsets,
-    );
+    context.fillText(label.topLabel.toLowerCase(), ...topLabelOffsets);
+    context.fillText(label.bottomLabel.toLowerCase(), ...bottomLabelOffsets);
   } else if (label.centerLabel) {
     const metrics = context.measureText(label.centerLabel.toLowerCase());
     const xMargin = (canvasWidth - metrics.width) / 2;
-    const yMargin = (canvasHeight - metrics.actualBoundingBoxAscent) / 2 + metrics.actualBoundingBoxAscent;
-    context.fillText(
-      label.label.toLowerCase(),
-      xMargin,
-      yMargin,
-    );
+    const yMargin =
+      (canvasHeight - metrics.actualBoundingBoxAscent) / 2 +
+      metrics.actualBoundingBoxAscent;
+    context.fillText(label.label.toLowerCase(), xMargin, yMargin);
     // return if label would have overflowed so that we know to show tooltip
     return xMargin < 4 || yMargin < 4;
   } else if (typeof label.label === 'string') {
     const metrics = context.measureText(label.label.toLowerCase());
     const xMargin = (canvasWidth - metrics.width) / 2;
-    const yMargin = (canvasHeight - metrics.actualBoundingBoxAscent) / 2 + metrics.actualBoundingBoxAscent;
-    context.fillText(
-      label.label.toLowerCase(),
-      xMargin,
-      yMargin,
-    );
+    const yMargin =
+      (canvasHeight - metrics.actualBoundingBoxAscent) / 2 +
+      metrics.actualBoundingBoxAscent;
+    context.fillText(label.label.toLowerCase(), xMargin, yMargin);
   }
 };
 
@@ -147,10 +138,8 @@ const paintKeycap = (
     CSSVarObject.keyXPos,
     CSSVarObject.keyYPos,
   ];
-  canvas.width =
-    canvasWidth * textureWidth - CSSVarObject.keyXSpacing;
-  canvas.height =
-    canvasHeight * textureHeight - CSSVarObject.keyYSpacing;
+  canvas.width = canvasWidth * textureWidth - CSSVarObject.keyXSpacing;
+  canvas.height = canvasHeight * textureHeight - CSSVarObject.keyYSpacing;
 
   const context = canvas.getContext('2d');
   if (context == null) {
@@ -199,8 +188,7 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
       canvasRef.current &&
       color &&
       label &&
-      (document.fonts.check('500 16px"Figtree"', label.label) ||
-        skipFontCheck)
+      (document.fonts.check('500 16px"Figtree"', label.label) || skipFontCheck)
     ) {
       // Only render label if it is available
       const doesOverflow = paintKeycap(
@@ -245,8 +233,8 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
         ? KeycapState.Pressed
         : KeycapState.Unpressed
       : hovered || selected
-      ? KeycapState.Pressed
-      : KeycapState.Unpressed;
+        ? KeycapState.Pressed
+        : KeycapState.Unpressed;
   const [keycapZ] =
     pressedState === KeycapState.Pressed
       ? [zDown, rotation[2]]
@@ -260,8 +248,8 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
           : 'lightgrey'
         : 'mediumvioletred'
       : pressedState === KeycapState.Unpressed
-      ? 'lightgrey'
-      : 'lightgrey';
+        ? 'lightgrey'
+        : 'lightgrey';
   const keycapOpacity =
     pressedState === KeycapState.Unpressed ? (wasPressed ? 0.4 : 0) : 0.6;
 
@@ -270,35 +258,35 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
     return disabled
       ? [noop, noop, noop, noop]
       : props.mode === DisplayMode.ConfigureColors
-      ? [
-          noop,
-          (evt: React.MouseEvent) => {
-            if (props.onPointerOver) {
-              props.onPointerOver(evt, idx);
-            }
-          },
-          noop,
-          (evt: React.MouseEvent) => {
-            if (props.onPointerDown) {
-              props.onPointerDown(evt, idx);
-            }
-          },
-        ]
-      : [
-          (evt: React.MouseEvent) => props.onClick(evt, idx),
-          (evt: React.MouseEvent) => {
-            if (props.onPointerOver) {
-              props.onPointerOver(evt, idx);
-            }
-            hover(true);
-          },
-          () => hover(false),
-          (evt: React.MouseEvent) => {
-            if (props.onPointerDown) {
-              props.onPointerDown(evt, idx);
-            }
-          },
-        ];
+        ? [
+            noop,
+            (evt: React.MouseEvent) => {
+              if (props.onPointerOver) {
+                props.onPointerOver(evt, idx);
+              }
+            },
+            noop,
+            (evt: React.MouseEvent) => {
+              if (props.onPointerDown) {
+                props.onPointerDown(evt, idx);
+              }
+            },
+          ]
+        : [
+            (evt: React.MouseEvent) => props.onClick(evt, idx),
+            (evt: React.MouseEvent) => {
+              if (props.onPointerOver) {
+                props.onPointerOver(evt, idx);
+              }
+              hover(true);
+            },
+            () => hover(false),
+            (evt: React.MouseEvent) => {
+              if (props.onPointerDown) {
+                props.onPointerDown(evt, idx);
+              }
+            },
+          ];
   }, [
     disabled,
     props.onClick,
@@ -383,11 +371,11 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
             animation: disabled
               ? 'initial' // This prevents the hover animation from firing when the keycap can't be interacted with
               : selected
-              ? '.75s infinite alternate select-glow'
-              : '',
+                ? '.75s infinite alternate select-glow'
+                : '',
             background: getDarkenedColor(props.color.c, 0.8),
             transform: `perspective(100px) translateZ(${keycapZ}px)`,
-            borderRadius: 12/*h*/,
+            borderRadius: 12 /*h*/,
             width:
               textureWidth * CSSVarObject.keyXPos - CSSVarObject.keyXSpacing,
             height:
@@ -404,7 +392,7 @@ export const Keycap: React.FC<TwoStringKeycapProps> = React.memo((props) => {
           ) : null}
           <CanvasContainer
             style={{
-              borderRadius: 12/*h*/,
+              borderRadius: 12 /*h*/,
               background: props.color.c,
               height: '100%',
             }}

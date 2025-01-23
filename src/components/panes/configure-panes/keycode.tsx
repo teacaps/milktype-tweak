@@ -1,8 +1,10 @@
-import {FC, useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import styled from 'styled-components';
 import {Button} from '../../inputs/button';
 import {KeycodeModal} from '../../inputs/custom-keycode-modal';
 import {title, component} from '../../icons/keyboard';
+import {component as LoadIcon} from '../../icons/milktype/load';
+import {component as DownloadIcon} from '../../icons/milktype/download';
 import * as EncoderPane from './encoder';
 import {
   keycodeInMaster,
@@ -12,8 +14,9 @@ import {
   IKeycode,
   IKeycodeMenu,
   categoriesForKeycodeModule,
+  getCodeForByte,
 } from '../../../utils/key';
-import {ErrorMessage} from '../../styled';
+import {ErrorMessage, SuccessMessage} from '../../styled';
 import {
   KeycodeType,
   getLightingDefinition,
@@ -28,22 +31,44 @@ import {
   getSelectedDefinition,
   getSelectedKeyDefinitions,
 } from 'src/store/definitionsSlice';
-import {getSelectedConnectedDevice} from 'src/store/devicesSlice';
+import {
+  getSelectedConnectedDevice,
+  getSelectedKeyboardAPI,
+} from 'src/store/devicesSlice';
 import {
   getSelectedKey,
   getSelectedKeymap,
+  getSelectedRawLayers,
+  saveRawKeymapToDevice,
   updateKey as updateKeyAction,
   updateSelectedKey,
 } from 'src/store/keymapSlice';
-import {
-  getMacroCount,
-} from 'src/store/macrosSlice';
+import {getExpressions, getMacroCount, saveMacros} from 'src/store/macrosSlice';
 import {
   disableGlobalHotKeys,
   enableGlobalHotKeys,
   getDisableFastRemap,
 } from 'src/store/settingsSlice';
 import {getNextKey} from 'src/utils/keyboard-rendering';
+import {IconButtonContainer} from '../../inputs/icon-button';
+import {IconButtonTooltip} from '../../inputs/tooltip';
+import stringify from 'json-stringify-pretty-compact';
+import deprecatedKeycodes from '../../../utils/key-to-byte/deprecated-keycodes';
+import {UploadButton} from '../../inputs/upload-button';
+import {PaneSelector} from '../pane';
+import {KeyboardIcon} from '../../icons/milktype/index';
+
+type ViaSaveFile = {
+  name: string;
+  vendorProductId: number;
+  layers: string[][];
+  macros?: string[];
+  encoders?: [string, string][][];
+};
+
+const isViaSaveFile = (obj: any): obj is ViaSaveFile =>
+  obj && obj.name && obj.layers && obj.vendorProductId;
+
 const KeycodeList = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, 64px);
@@ -54,6 +79,9 @@ const KeycodeList = styled.div`
 
 const MenuContainer = styled.div`
   padding: 15px 20px 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Keycode = styled(Button)<{disabled: boolean}>`
@@ -86,9 +114,9 @@ const CustomKeycode = styled(Button)`
   line-height: 18px;
   border-radius: 10px;
   font-size: 14px;
-  background: var(--color_accent);
+  background: var(--color-accent-100);
   border-color: var(--color_inside_accent);
-  color: var(--color_inside_accent);
+  color: var(--color-white-80);
   margin: 0;
 `;
 
@@ -115,13 +143,22 @@ const KeycodeDesc = styled.div`
   }
 `;
 
-const generateKeycodeCategories = (basicKeyToByte: Record<string, number>, numMacros: number = 16) =>
-  getKeycodes(numMacros).concat(getOtherMenu(basicKeyToByte));
+const LoadSaveContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+`;
+
+const generateKeycodeCategories = (
+  basicKeyToByte: Record<string, number>,
+  numMacros: number = 16,
+) => getKeycodes(numMacros).concat(getOtherMenu(basicKeyToByte));
 
 const maybeFilter = <M extends Function>(maybe: boolean, filter: M) =>
   maybe ? () => true : filter;
 
-export const Pane: FC = () => {
+export const Pane = () => {
   const selectedKey = useAppSelector(getSelectedKey);
   const dispatch = useAppDispatch();
   const keys = useAppSelector(getSelectedKeyDefinitions);
@@ -138,8 +175,12 @@ export const Pane: FC = () => {
   return <KeycodePane />;
 };
 
-export const KeycodePane: FC = () => {
+export const KeycodePane = () => {
   const dispatch = useAppDispatch();
+  const api = useAppSelector(getSelectedKeyboardAPI);
+  const rawLayers = useAppSelector(getSelectedRawLayers);
+  const expressions = useAppSelector(getExpressions);
+  const {basicKeyToByte, byteToKey} = useAppSelector(getBasicKeyToByte);
   const macros = useAppSelector((state: any) => state.macros);
   const selectedDefinition = useAppSelector(getSelectedDefinition);
   const selectedDevice = useAppSelector(getSelectedConnectedDevice);
@@ -147,7 +188,6 @@ export const KeycodePane: FC = () => {
   const selectedKey = useAppSelector(getSelectedKey);
   const disableFastRemap = useAppSelector(getDisableFastRemap);
   const selectedKeyDefinitions = useAppSelector(getSelectedKeyDefinitions);
-  const {basicKeyToByte} = useAppSelector(getBasicKeyToByte);
   const macroCount = useAppSelector(getMacroCount);
 
   const KeycodeCategories = useMemo(
@@ -156,9 +196,12 @@ export const KeycodePane: FC = () => {
   );
 
   // TODO: improve typing so we can get rid of this
-  if (!selectedDefinition || !selectedDevice || !matrixKeycodes) {
+  if (!selectedDefinition || !selectedDevice || !matrixKeycodes || !api) {
     return null;
   }
+
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const [selectedCategory, setSelectedCategory] = useState(
     KeycodeCategories[0].id,
@@ -219,7 +262,7 @@ export const KeycodePane: FC = () => {
             onClick={() => setSelectedCategory(id)}
             key={id}
           >
-            {label}
+            {label.toLowerCase()}
           </SubmenuRow>
         ))}
       </MenuContainer>
@@ -295,7 +338,7 @@ export const KeycodePane: FC = () => {
         onMouseOver={() => setMouseOverDesc('Enter any QMK Keycode')}
         onMouseOut={() => setMouseOverDesc(null)}
       >
-        Any
+        any
       </CustomKeycode>
     );
   };
@@ -350,13 +393,207 @@ export const KeycodePane: FC = () => {
     }
   };
 
+  const getEncoderValues = async () => {
+    const {layouts} = selectedDefinition;
+    const {keys, optionKeys} = layouts;
+    const encoders = [
+      ...keys,
+      ...Object.values(optionKeys)
+        .flatMap((a) => Object.values(a))
+        .flat(),
+    ]
+      .filter((a) => 'ei' in a)
+      .map((a) => a.ei as number);
+    if (encoders.length > 0) {
+      const maxEncoder = Math.max(...encoders) + 1;
+      const numberOfLayers = rawLayers.length;
+      const encoderValues = await Promise.all(
+        Array(maxEncoder)
+          .fill(0)
+          .map((_, i) =>
+            Promise.all(
+              Array(numberOfLayers)
+                .fill(0)
+                .map((_, j) =>
+                  Promise.all([
+                    api.getEncoderValue(j, i, false),
+                    api.getEncoderValue(j, i, true),
+                  ]).then(
+                    (a) =>
+                      a.map(
+                        (keyByte) =>
+                          getCodeForByte(keyByte, basicKeyToByte, byteToKey) ||
+                          '',
+                      ) as [string, string],
+                  ),
+                ),
+            ),
+          ),
+      );
+      return encoderValues;
+    } else {
+      return [];
+    }
+  };
+
+  const saveLayout = async () => {
+    const {name, vendorProductId} = selectedDefinition;
+    const suggestedName =
+      name.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase() + '.layout.json';
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName,
+      });
+      const encoderValues = await getEncoderValues();
+      const saveFile: ViaSaveFile = {
+        name,
+        vendorProductId,
+        macros: [...expressions],
+        layers: rawLayers.map(
+          (layer: {keymap: number[]}) =>
+            layer.keymap.map(
+              (keyByte: number) =>
+                getCodeForByte(keyByte, basicKeyToByte, byteToKey) || '',
+            ), // TODO: should empty string be empty keycode instead?
+        ),
+        encoders: encoderValues,
+      };
+
+      const content = stringify(saveFile);
+      const blob = new Blob([content], {type: 'application/json'});
+      const writable = await handle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+    } catch (err) {
+      console.log('User cancelled save file request');
+    }
+
+    /*
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = defaultFilename;
+
+    link.click();
+    URL.revokeObjectURL(url);
+*/
+  };
+
+  const loadLayout = ([file]: Blob[]) => {
+    setErrorMessage(null);
+    setSuccessMessage(null);
+    const reader = new FileReader();
+
+    reader.onabort = () => setErrorMessage('File reading was cancelled.');
+    reader.onerror = () => setErrorMessage('Failed to read file.');
+
+    reader.onload = async () => {
+      const saveFile = JSON.parse((reader as any).result.toString());
+      if (!isViaSaveFile(saveFile)) {
+        setErrorMessage('Could not load file: invalid data.');
+        return;
+      }
+
+      if (saveFile.vendorProductId !== selectedDefinition.vendorProductId) {
+        setErrorMessage(
+          `Could not import layout. This file was created for a different keyboard: ${saveFile.name}`,
+        );
+        return;
+      }
+
+      if (
+        saveFile.layers.findIndex(
+          (layer, idx) => layer.length !== rawLayers[idx].keymap.length,
+        ) > -1
+      ) {
+        setErrorMessage(
+          'Could not import layout: incorrect number of keys in one or more layers.',
+        );
+        return;
+      }
+
+      if (macros.isFeatureSupported && saveFile.macros) {
+        if (saveFile.macros.length !== expressions.length) {
+          setErrorMessage(
+            'Could not import layout: incorrect number of macros.',
+          );
+          return;
+        }
+
+        dispatch(saveMacros(selectedDevice, saveFile.macros));
+      }
+
+      const keymap: number[][] = saveFile.layers.map((layer) =>
+        layer.map((key) =>
+          getByteForCode(`${deprecatedKeycodes[key] ?? key}`, basicKeyToByte),
+        ),
+      );
+
+      // John you drongo, don't trust the compiler, dispatches are totes awaitable for async thunks
+      await dispatch(saveRawKeymapToDevice(keymap, selectedDevice));
+
+      if (saveFile.encoders) {
+        await Promise.all(
+          saveFile.encoders.map((encoder, id) =>
+            Promise.all(
+              encoder.map((layer, layerId) =>
+                Promise.all([
+                  api.setEncoderValue(
+                    layerId,
+                    id,
+                    false,
+                    getByteForCode(
+                      `${deprecatedKeycodes[layer[0]] ?? layer[0]}`,
+                      basicKeyToByte,
+                    ),
+                  ),
+                  api.setEncoderValue(
+                    layerId,
+                    id,
+                    true,
+                    getByteForCode(
+                      `${deprecatedKeycodes[layer[1]] ?? layer[1]}`,
+                      basicKeyToByte,
+                    ),
+                  ),
+                ]),
+              ),
+            ),
+          ),
+        );
+      }
+
+      setSuccessMessage('Successfully updated layout!');
+    };
+
+    reader.readAsBinaryString(file);
+  };
+
   const selectedCategoryKeycodes = KeycodeCategories.find(
     ({id}) => id === selectedCategory,
   )?.keycodes as IKeycode[];
 
   return (
     <>
-      <SubmenuOverflowCell>{renderCategories()}</SubmenuOverflowCell>
+      <SubmenuOverflowCell>
+        <PaneSelector />
+        {renderCategories()}
+        <LoadSaveContainer>
+          <UploadButton onLoad={loadLayout}>
+            <LoadIcon color={'var(--color-white-80)'} width={'1em'} />
+            <IconButtonTooltip>Load</IconButtonTooltip>
+          </UploadButton>
+          <IconButtonContainer onClick={saveLayout}>
+            <DownloadIcon color={'var(--color-white-80)'} width={'1em'} />
+            <IconButtonTooltip>Save</IconButtonTooltip>
+          </IconButtonContainer>
+        </LoadSaveContainer>
+        {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
+        {successMessage ? (
+          <SuccessMessage>{successMessage}</SuccessMessage>
+        ) : null}
+      </SubmenuOverflowCell>
       <OverflowCell>
         <KeycodeContainer>
           {renderSelectedCategory(selectedCategoryKeycodes, selectedCategory)}
@@ -368,5 +605,5 @@ export const KeycodePane: FC = () => {
   );
 };
 
-export const Icon = component;
+export const Icon = KeyboardIcon;
 export const Title = title;

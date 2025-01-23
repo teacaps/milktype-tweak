@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 const Label = styled.label`
   font-size: 20px;
-  text-transform: uppercase;
+  text-transform: lowercase;
   color: var(--color_label-highlighted);
   margin-right: 6px;
 `;

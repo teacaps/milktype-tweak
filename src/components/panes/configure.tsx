@@ -3,7 +3,7 @@ import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import ChippyLoader from '../chippy-loader';
 import LoadingText from '../loading-text';
-import {CenterPane, ConfigureBasePane} from './pane';
+import {CenterPane, ConfigureBasePane, PaneContext} from './pane';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {
   CustomFeaturesV2,
@@ -13,13 +13,10 @@ import {
   VIADefinitionV2,
   VIADefinitionV3,
 } from '@the-via/reader';
-import {Grid, Row, IconContainer, MenuCell, ConfigureFlexCell} from './grid';
+import {Grid, ConfigureFlexCell} from './grid';
 import * as Keycode from './configure-panes/keycode';
 import * as Lighting from './configure-panes/lighting';
-import * as Macros from './configure-panes/macros';
-import * as SaveLoad from './configure-panes/save-load';
 import * as Layouts from './configure-panes/layouts';
-import * as RotaryEncoder from './configure-panes/custom/satisfaction75';
 import {makeCustomMenus} from './configure-panes/custom/menu-generator';
 import {LayerControl} from './configure-panes/layer-control';
 import {Badge} from './configure-panes/badge';
@@ -39,27 +36,24 @@ import {getIsMacroFeatureSupported} from 'src/store/macrosSlice';
 import {getConnectedDevices, getSupportedIds} from 'src/store/devicesSlice';
 import {isElectron} from 'src/utils/running-context';
 import {useAppDispatch} from 'src/store/hooks';
-import {MenuTooltip} from '../inputs/tooltip';
 import {getRenderMode, getSelectedTheme} from 'src/store/settingsSlice';
-
-const MenuContainer = styled.div`
-  padding: 15px 10px 20px 10px;
-`;
 
 const Rows = [
   Keycode,
-  Macros,
+  // Macros,
   Layouts,
   Lighting,
-  SaveLoad,
-  RotaryEncoder,
+  // SaveLoad,
+  // RotaryEncoder,
   ...makeCustomMenus([]),
 ];
 function getCustomPanes(customFeatures: CustomFeaturesV2[]) {
   if (
     customFeatures.find((feature) => feature === CustomFeaturesV2.RotaryEncoder)
   ) {
-    return [RotaryEncoder];
+    return [
+      /*RotaryEncoder*/
+    ];
   }
   return [];
 }
@@ -79,8 +73,8 @@ const getRowsForKeyboard = (): typeof Rows => {
       ...filterInferredRows(selectedDefinition, showMacros, numberOfLayers, [
         Keycode,
         Layouts,
-        Macros,
-        SaveLoad,
+        // Macros,
+        // SaveLoad,
       ]),
       ...v3Menus,
     ];
@@ -105,11 +99,11 @@ const filterInferredRows = (
   }
 
   if (numberOfLayers === 0) {
-    removeList = [...removeList, Keycode, SaveLoad];
+    removeList = [...removeList, Keycode /*SaveLoad*/];
   }
 
   if (!showMacros) {
-    removeList = [...removeList, Macros];
+    removeList = [...removeList /*Macros*/];
   }
   let filteredRows = rows.filter(
     (row) => !removeList.includes(row),
@@ -122,7 +116,7 @@ const getRowsForKeyboardV2 = (
   showMacros: boolean,
   numberOfLayers: number,
 ): typeof Rows => {
-  let rows: typeof Rows = [Keycode, Layouts, Macros, SaveLoad];
+  let rows: typeof Rows = [Keycode, Layouts /*Macros, SaveLoad*/];
   if (isVIADefinitionV2(selectedDefinition)) {
     const {lighting, customFeatures} = selectedDefinition;
     const {supportedLightingValues} = getLightingDefinition(lighting);
@@ -249,26 +243,30 @@ const ConfigureGrid = () => {
         </div>
       </ConfigureFlexCell>
       <Grid style={{pointerEvents: 'none'}}>
-        <MenuCell style={{pointerEvents: 'all'}}>
-          <MenuContainer>
-            {(KeyboardRows || []).map(
-              ({Icon, Title}: {Icon: any; Title: string}, idx: number) => (
-                <Row
-                  key={idx}
-                  onClick={(_) => setRow(idx)}
-                  $selected={selectedRow === idx}
-                >
-                  <IconContainer>
-                    <Icon />
-                    <MenuTooltip>{Title}</MenuTooltip>
-                  </IconContainer>
-                </Row>
-              ),
-            )}
-          </MenuContainer>
-        </MenuCell>
+        <PaneContext.Provider
+          value={{menus: KeyboardRows, selected: selectedRow, setRow}}
+        >
+          {/*<MenuCell style={{pointerEvents: 'all'}}>*/}
+          {/*  <MenuContainer>*/}
+          {/*    {(KeyboardRows || []).map(*/}
+          {/*      ({Icon, Title}: {Icon: any; Title: string}, idx: number) => (*/}
+          {/*        <Row*/}
+          {/*          key={idx}*/}
+          {/*          onClick={(_) => setRow(idx)}*/}
+          {/*          $selected={selectedRow === idx}*/}
+          {/*        >*/}
+          {/*          <IconContainer>*/}
+          {/*            <Icon />*/}
+          {/*            <MenuTooltip>{Title}</MenuTooltip>*/}
+          {/*          </IconContainer>*/}
+          {/*        </Row>*/}
+          {/*      ),*/}
+          {/*    )}*/}
+          {/*  </MenuContainer>*/}
+          {/*</MenuCell>*/}
 
-        {SelectedPane && <SelectedPane />}
+          {SelectedPane && <SelectedPane />}
+        </PaneContext.Provider>
       </Grid>
     </>
   );

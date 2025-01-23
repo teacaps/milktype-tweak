@@ -18,7 +18,6 @@ export const Button = styled.div`
   justify-content: center;
   align-items: center;
   white-space: pre-wrap;
-  box-shadow: #8c8c8c 0 1px 0 0;
   &:hover {
     transform: translate3d(0, -2px, 0);
   }

@@ -34,6 +34,8 @@ type State = {
 const ColorPickerContainer = styled.div`
   display: flex;
   align-items: center;
+
+  --border_color_cell: var(--color-dark-100);
 `;
 
 const ColorLens = styled.div`
@@ -47,11 +49,15 @@ const ColorLens = styled.div`
   pointer-events: none;
   box-sizing: border-box;
   transform: translate3d(195px, 195px, 0);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 `;
 const ColorInner = styled.div`
   width: 100%;
   height: 100%;
   background: linear-gradient(to top, white, rgba(0, 0, 0, 0));
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 `;
 
 const ColorOuter = styled.div`
@@ -67,6 +73,8 @@ const ColorOuter = styled.div`
     magenta,
     red
   );
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 `;
 
 const ColorThumbnail = styled.div`
@@ -74,7 +82,7 @@ const ColorThumbnail = styled.div`
   height: 25px;
   width: 25px;
   border-radius: 50%;
-  border: 4px solid var(--border_color_cell);
+  border: 2px solid var(--border_color_cell);
   cursor: pointer;
   &:hover {
     opacity: 0.8;
@@ -82,10 +90,12 @@ const ColorThumbnail = styled.div`
 `;
 
 const Container = styled.div`
-  border: 4px solid var(--border_color_cell);
+  border: 2px solid var(--border_color_cell);
   width: 180px;
   height: 180px;
   position: relative;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 `;
 
 const PickerContainer = styled.div`
@@ -95,9 +105,9 @@ const PickerContainer = styled.div`
   align-items: center;
   flex-direction: column;
   z-index: 1;
-  box-shadow: rgba(0, 0, 0, 0.11) 0 1px 1px 1px;
   position: absolute;
   transform: translate3d(-205px, 50px, 0);
+  border-radius: 8px;
 
   &::after {
     content: '';
@@ -116,25 +126,27 @@ const PickerContainer = styled.div`
 const ColorPreview = styled.div`
   width: 180px;
   height: 24px;
-  border: 4px solid var(--border_color_cell);
+  border: 2px solid var(--border_color_cell);
   border-bottom: none;
 `;
 
 const ColorHexContainer = styled.div`
-  border: 4px solid var(--border_color_cell);
+  border: 2px solid var(--border_color_cell);
   border-bottom: none;
   width: 180px;
   height: 32px;
   line-height: 32px;
   text-align: center;
   background: var(--bg_menu);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 `;
 
 const ColorHexInput = styled.input`
   text-align: center;
   border: none;
   color: var(--color_accent);
-  background: var(--bg_menu);
+  background: var(--color-white-60);
   font-size: 20px;
   font-weight: 300;
   padding: 0;

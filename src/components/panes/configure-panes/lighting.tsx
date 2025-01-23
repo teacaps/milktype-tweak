@@ -1,8 +1,8 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-import {OverflowCell, SubmenuCell, SubmenuRow} from '../grid';
-import {CenterPane} from '../pane';
-import {title, component} from '../../icons/lightbulb';
+import {OverflowCell, SubmenuOverflowCell, SubmenuRow} from '../grid';
+import {CenterPane, PaneSelector} from '../pane';
+import {title} from '../../icons/lightbulb';
 import {GeneralPane} from './submenus/lighting/general';
 import {
   LayoutConfigValues,
@@ -15,7 +15,7 @@ import {
 import {getLightingDefinition, isVIADefinitionV2} from '@the-via/reader';
 import {useAppSelector} from 'src/store/hooks';
 import {getSelectedDefinition} from 'src/store/definitionsSlice';
-import type {FC} from 'react';
+import {LightbulbIcon} from '../../icons/milktype/index';
 
 export const Category = {
   General: {label: 'General', Menu: GeneralPane},
@@ -39,7 +39,7 @@ const MenuContainer = styled.div`
   padding: 15px 20px 20px 10px;
 `;
 
-export const Pane: FC = () => {
+export const Pane = () => {
   const selectedDefinition = useAppSelector(getSelectedDefinition);
 
   const [selectedCategory, setSelectedCategory] = useState(Category.General);
@@ -73,7 +73,8 @@ export const Pane: FC = () => {
 
   return (
     <>
-      <SubmenuCell>
+      <SubmenuOverflowCell>
+        <PaneSelector />
         <MenuContainer>
           {getMenus().map((menu) => (
             <SubmenuRow
@@ -85,7 +86,7 @@ export const Pane: FC = () => {
             </SubmenuRow>
           ))}
         </MenuContainer>
-      </SubmenuCell>
+      </SubmenuOverflowCell>
       <OverflowCell>
         <LightingPane>
           <Container>
@@ -97,5 +98,5 @@ export const Pane: FC = () => {
   );
 };
 
-export const Icon = component;
+export const Icon = LightbulbIcon;
 export const Title = title;

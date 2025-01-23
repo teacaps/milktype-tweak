@@ -33,7 +33,7 @@ const KeyboardTitle = styled.label`
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
   font-size: 18px;
-  text-transform: uppercase;
+  text-transform: lowercase;
   color: var(--color_inside-accent);
   padding: 1px 10px;
   margin-right: 10px;
@@ -81,7 +81,7 @@ const KeyboardButton = styled.button<{$selected?: boolean}>`
   cursor: pointer;
   text-align: left;
   font-size: 14px;
-  text-transform: uppercase;
+  text-transform: lowercase;
   padding: 5px 10px;
   &:hover {
     border: none;

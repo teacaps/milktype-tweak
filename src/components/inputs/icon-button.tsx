@@ -2,13 +2,14 @@ import styled from 'styled-components';
 
 export const IconButton = styled.button`
   appearance: none;
-  width: 40px;
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em;
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 10px 10px;
   line-height: initial;
   font-size: initial;
   color: ${(props) =>
@@ -24,16 +25,13 @@ export const IconButton = styled.button`
   &:hover {
     color: ${(props) =>
       props.disabled ? 'var(--bg_control)' : 'var(--color_inside-accent)'};
-    border-color: ${(props) =>
-      props.disabled ? 'var(--bg_control)' : 'var(--color_accent)'};
-    border-right: 1px solid var(--border_color_icon);
     background-color: ${(props) =>
       props.disabled ? 'var(--bg_menu)' : 'var(--color_accent)'};
   }
 
   svg {
     color: ${(props) =>
-      props.disabled ? 'var(--bg_control)' : 'var(--color_accent)'};
+      props.disabled ? 'var(--bg_control)' : 'var(--color-white-100)'};
   }
   &:hover {
     svg {
@@ -56,18 +54,13 @@ export const IconButton = styled.button`
 export const IconButtonUnfilledContainer = styled(IconButton)`
   cursor: pointer;
   background: inherit;
-  border: 1px solid var(--color_accent);
-  width: 30px;
-  height: 30px;
-  justify-content: center;
   display: inline-flex;
-  align-items: center;
 `;
 
 export const IconButtonContainer = styled(IconButton)`
   cursor: pointer;
-  background: var(--bg_control);
-  border-right: 1px solid var(--border_color_icon);
+  background: var(--bg_button);
+  border-radius: 4px;
 `;
 
 export const IconToggleContainer = styled(IconButton)<{$selected: boolean}>`
@@ -87,5 +80,4 @@ export const IconToggleContainer = styled(IconButton)<{$selected: boolean}>`
         props.$selected ? 'var(--color_inside-accent)' : 'var(--bg_icon)'};
     }
   }
-  border-right: 1px solid var(--border_color_icon);
 `;

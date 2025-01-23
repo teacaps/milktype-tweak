@@ -51,7 +51,7 @@ function Layouts({
 
       return (
         <RowComponent key={`${layoutKey}-${name}`}>
-          <Label>{name}</Label>
+          <Label>{name.toLowerCase()}</Label>
           <Detail>
             <AccentSelect
               onChange={(option: any) => {
@@ -78,7 +78,7 @@ function Layouts({
     if (typeof label === 'string') {
       return (
         <RowComponent key={`${layoutKey}-${label}`}>
-          <Label>{label}</Label>
+          <Label>{label.toLowerCase()}</Label>
           <Detail>
             <AccentSlider
               isChecked={Boolean(selectedOptionKeys[layoutKey])}

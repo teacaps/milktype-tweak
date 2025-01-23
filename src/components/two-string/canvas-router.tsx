@@ -35,10 +35,7 @@ const KeyboardBG = styled.div<{
   right: 0;
   bottom: 0;
   left: 0;
-  background: ${(props) =>
-    `linear-gradient(30deg, rgba(150,150,150,1) 10%,${getDarkenedColor(
-      props.$color,
-    )} 50%, rgba(150,150,150,1) 90%)`};
+  background: var(--bg_gradient);
   opacity: ${(props) => (props.$visible ? 1 : 0)};
 `;
 

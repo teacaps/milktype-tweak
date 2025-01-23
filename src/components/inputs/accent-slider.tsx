@@ -24,7 +24,7 @@ const Slider = styled.span<{$ischecked?: boolean}>`
     props.$ischecked ? 'var(--color_accent)' : 'var(--bg_control)'};
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  border-radius: 4px;
+  border-radius: 12px;
   &:before {
     position: absolute;
     content: '';
@@ -32,7 +32,7 @@ const Slider = styled.span<{$ischecked?: boolean}>`
     width: 26px;
     left: 4px;
     bottom: 4px;
-    border-radius: 4px;
+    border-radius: 8px;
     background-color: ${(props) =>
       !props.$ischecked ? 'var(--bg_icon)' : 'var(--color_inside-accent)'};
     -webkit-transition: 0.4s;

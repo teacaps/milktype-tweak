@@ -19,8 +19,8 @@ export const THEMES = {
         t: '#3E3734'
       },
       accent: {
-        c: '#F8E3D8',
-        t: '#3E3734'
+        c: '#E2794C',
+        t: '#F8E3D8'
       }
     },
     OLIVIA_DARK: {

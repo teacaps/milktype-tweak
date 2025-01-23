@@ -44,7 +44,6 @@ const ErrorHome = styled.div`
   bottom: 0;
   padding-top: 24px;
   position: absolute;
-  border-top: 1px solid var(--border_color_cell);
 `;
 
 const UsbError = styled.div`

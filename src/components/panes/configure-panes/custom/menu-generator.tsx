@@ -1,14 +1,8 @@
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {
-  faDisplay,
-  faHeadphones,
-  faLightbulb,
-  faMicrochip,
-} from '@fortawesome/free-solid-svg-icons';
+import {faMicrochip} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import {OverflowCell, SubmenuCell, SubmenuRow} from '../../grid';
-import {CenterPane} from '../../pane';
+import {CenterPane, PaneSelector} from '../../pane';
 import {title, component} from '../../../icons/lightbulb';
 import {VIACustomItem} from './custom-control';
 import {evalExpr} from '@the-via/pelpi';
@@ -25,6 +19,11 @@ import {
   getSelectedCustomMenuData,
   updateCustomMenuValue,
 } from 'src/store/menusSlice';
+import {
+  AudioIcon,
+  DisplayIcon,
+  LightbulbIcon,
+} from '../../../icons/milktype/index';
 
 type Category = {
   label: string;
@@ -42,6 +41,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 0 12px;
+  text-transform: lowercase;
 `;
 
 type Props = {
@@ -99,8 +99,9 @@ const MenuComponent = React.memo((props: any) => (
   </>
 ));
 
-const MenuBuilder = (elem: any) => (props: any) =>
-  <MenuComponent {...props} key={elem._id} elem={elem} />;
+const MenuBuilder = (elem: any) => (props: any) => (
+  <MenuComponent {...props} key={elem._id} elem={elem} />
+);
 
 function submenuGenerator(
   elem: TagWithId<VIASubmenu, VIASubmenuSlice>,
@@ -150,6 +151,7 @@ export const Pane: React.FC<Props> = (props: any) => {
   return (
     <>
       <SubmenuCell>
+        <PaneSelector />
         <MenuContainer>
           {menus.map((menu) => (
             <SubmenuRow
@@ -235,15 +237,15 @@ export function menuLabeler(menus: any, prefix: string = ''): any {
 
 const iconKeywords = [
   {
-    icon: faLightbulb,
+    icon: LightbulbIcon,
     keywords: ['light', 'rgb'],
   },
   {
-    icon: faHeadphones,
+    icon: AudioIcon,
     keywords: ['audio', 'sound'],
   },
   {
-    icon: faDisplay,
+    icon: DisplayIcon,
     keywords: ['display', 'oled', 'lcd'],
   },
 ];
@@ -262,7 +264,7 @@ export const makeCustomMenu = (menu: VIAMenu, idx: number) => {
   return {
     Title: menu.label,
     // Allow icon to be configurable
-    Icon: () => <FontAwesomeIcon icon={getIconFromLabel(menu)} />,
+    Icon: getIconFromLabel(menu),
     Pane: (props: any) => (
       <Pane {...props} key={`${menu.label}-${idx}`} viaMenu={menu} />
     ),

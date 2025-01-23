@@ -102,7 +102,7 @@ html {
   --color_label-highlighted: var(--color_light-jet);
   --color_error: var(--color_error);
   --border_color_icon: var(--color_medium-grey);
-  --border_color_cell: var(--color_tinge-dark);
+  --border_color_cell: var(--color-dark-100);
   --bg_icon: var(--color_medium-grey);
   --bg_icon-highlighted: var(--color_light-jet);
   --color_icon-highlighted: var(--color_tinge-light);
@@ -114,6 +114,7 @@ html {
   --bg_control-highlighted: var(--color_warm-white);
   --bg_control-disabled: transparent;
   --bg_gradient: var(--color-white-100);
+  --bg_button: var(--color-dark-100);
 }
 
 #root {
