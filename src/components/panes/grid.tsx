@@ -8,6 +8,7 @@ export const Grid = styled.div`
   grid-template-columns: min-content minmax(0, 1fr);
   > div {
     pointer-events: all;
+    scrollbar-gutter: stable;
   }
 `;
 

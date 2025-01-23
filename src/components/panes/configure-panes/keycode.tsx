@@ -128,7 +128,8 @@ const KeycodeContainer = styled.div`
 const KeycodeDesc = styled.div`
   position: fixed;
   bottom: 0;
-  background: #d9d9d97a;
+  background: var(--color-accent-60);
+  color: var(--color-white-100);
   box-sizing: border-box;
   transition: opacity 0.4s ease-out;
   height: 25px;
@@ -322,7 +323,13 @@ export const KeycodePane = () => {
         key={code}
         disabled={!keycodeInMaster(code, basicKeyToByte) && code != 'text'}
         onClick={() => handleClick(code, index)}
-        onMouseOver={() => setMouseOverDesc(title ? `${code}: ${title}` : code)}
+        onMouseOver={() =>
+          setMouseOverDesc(
+            title
+              ? `${code}: ${title.toLowerCase()}`
+              : `${code}: ${name.toLowerCase()}`,
+          )
+        }
         onMouseOut={() => setMouseOverDesc(null)}
       >
         <KeycodeContent>{content}</KeycodeContent>
@@ -335,7 +342,7 @@ export const KeycodePane = () => {
       <CustomKeycode
         key="customKeycode"
         onClick={() => selectedKey !== null && handleClick('text', 0)}
-        onMouseOver={() => setMouseOverDesc('Enter any QMK Keycode')}
+        onMouseOver={() => setMouseOverDesc('enter any qmk keycode')}
         onMouseOut={() => setMouseOverDesc(null)}
       >
         any
