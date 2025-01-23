@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 export const Message = styled.span`
-  font-size: 18px;
-  margin: 8px;
+  text-transform: lowercase;
+  margin-top: 12px;
+  display: inline-block;
   text-align: center;
 `;
 
