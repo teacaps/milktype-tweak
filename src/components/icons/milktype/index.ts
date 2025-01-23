@@ -5,3 +5,5 @@ export {component as LightbulbIcon} from './lightbulb';
 export {component as LayoutsIcon} from './layouts';
 export {component as AudioIcon} from './audio';
 export {component as DisplayIcon} from './display';
+export {component as ChevronDownIcon} from './chevron-down';
+export {component as PlusIcon} from './plus';

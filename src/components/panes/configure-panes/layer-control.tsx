@@ -17,27 +17,29 @@ const Container = styled.div`
 const Label = styled.label`
   font-size: 20px;
   text-transform: lowercase;
-  color: var(--color_label-highlighted);
-  margin-right: 6px;
+  color: var(--color-dark-100);
+  margin-right: 8px;
+`;
+const ButtonsContainer = styled.div`
+  display: inline-flex;
+  gap: 4px;
 `;
 const LayerButton = styled.button<{$selected?: boolean}>`
   outline: none;
   font-variant-numeric: tabular-nums;
   border: none;
+  border-radius: 8px;
   background: ${(props) =>
     props.$selected ? 'var(--color_accent)' : 'transparent'};
   color: ${(props) =>
-    props.$selected
-      ? 'var(--color_inside-accent)'
-      : 'var(--color_label-highlighted)'};
+    props.$selected ? 'var(--color-white-100)' : 'var(--color-dark-100)'};
   cursor: pointer;
   font-size: 20px;
   font-weight: 400;
   &:hover {
     border: none;
-    background: ${(props) => (props.$selected ? 'auto' : 'var(--bg_menu)')};
-    color: ${(props) =>
-      props.$selected ? 'auto' : 'var(--color_label-highlighted)'};
+    background: ${(props) =>
+      props.$selected ? 'auto' : 'var(--color-accent-60)'};
   }
 `;
 
@@ -66,7 +68,7 @@ export const LayerControl = () => {
   return (
     <Container>
       <Label>Layer</Label>
-      {Layers}
+      <ButtonsContainer>{Layers}</ButtonsContainer>
     </Container>
   );
 };

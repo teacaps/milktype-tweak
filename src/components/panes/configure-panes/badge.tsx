@@ -16,6 +16,7 @@ import {
 } from 'src/store/devicesSlice';
 import {selectConnectedDeviceByPath} from 'src/store/devicesThunks';
 import {isElectron} from 'src/utils/running-context';
+import {ChevronDownIcon, PlusIcon} from '../../icons/milktype/index';
 
 const Container = styled.div`
   position: absolute;
@@ -28,26 +29,27 @@ const Container = styled.div`
 
 const KeyboardTitle = styled.label`
   pointer-events: all;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   background: var(--color_accent);
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
-  font-size: 18px;
+  font-size: 16px;
   text-transform: lowercase;
   color: var(--color_inside-accent);
-  padding: 1px 10px;
+  padding: 8px 12px;
   margin-right: 10px;
   border: solid 1px var(--bg_control);
   border-top: none;
   cursor: pointer;
   transition: all 0.1s ease-out;
   &:hover {
-    filter: brightness(0.7);
+    background: var(--color-accent-60);
+    color: var(--color-dark-100);
   }
 `;
 const KeyboardList = styled.ul<{$show: boolean}>`
   padding: 0;
-  border: 1px solid var(--bg_control);
   width: 160px;
   border-radius: 6px;
   background-color: var(--bg_menu);
@@ -63,7 +65,10 @@ const KeyboardList = styled.ul<{$show: boolean}>`
   transform: ${(props) => (props.$show ? 0 : `translateY(-5px)`)};
 `;
 const KeyboardButton = styled.button<{$selected?: boolean}>`
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+
   text-align: center;
   outline: none;
   font-variant-numeric: tabular-nums;
@@ -73,11 +78,9 @@ const KeyboardButton = styled.button<{$selected?: boolean}>`
   width: 100%;
   border: none;
   background: ${(props) =>
-    props.$selected ? 'var(--bg_icon-highlighted)' : 'transparent'};
+    props.$selected ? 'var(--color-accent-100)' : 'transparent'};
   color: ${(props) =>
-    props.$selected
-      ? 'var(--color_icon_highlighted)'
-      : 'var(--color_label-highlighted)'};
+    props.$selected ? 'var(--color-white-100)' : 'var(--color-dark-100)'};
   cursor: pointer;
   text-align: left;
   font-size: 14px;
@@ -86,11 +89,9 @@ const KeyboardButton = styled.button<{$selected?: boolean}>`
   &:hover {
     border: none;
     background: ${(props) =>
-      props.$selected ? 'var(--bg_icon-highlighted)' : 'var(--bg_control)'};
+      props.$selected ? 'var(--color-dark-100)' : 'var(--color-accent-60)'};
     color: ${(props) =>
-      props.$selected
-        ? 'var(--color_control-highlighted)'
-        : 'var(--color_label-highlighted)'};
+      props.$selected ? 'var(--color-white-80)' : 'var(--color-dark-120)'};
   }
 `;
 
@@ -138,8 +139,8 @@ const KeyboardSelectors: React.FC<{
         })}
         {!isElectron && (
           <KeyboardButton onClick={requestAndChangeDevice}>
-            Authorize New
-            <FontAwesomeIcon icon={faPlus} style={{marginLeft: '10px'}} />
+            Select New
+            <PlusIcon style={{marginLeft: 10, width: 14}} />
           </KeyboardButton>
         )}
       </KeyboardList>
@@ -178,12 +179,12 @@ export const Badge = () => {
       <Container>
         <KeyboardTitle onClick={() => setShowList(!showList)}>
           {selectedDefinition.name}
-          <FontAwesomeIcon
-            icon={faAngleDown}
+          <ChevronDownIcon
             style={{
               transform: showList ? 'rotate(180deg)' : '',
               transition: 'transform 0.2s ease-out',
               marginLeft: '5px',
+              width: '18px',
             }}
           />
         </KeyboardTitle>
