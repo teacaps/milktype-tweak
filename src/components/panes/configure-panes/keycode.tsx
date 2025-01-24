@@ -78,7 +78,6 @@ const KeycodeList = styled.div`
 `;
 
 const MenuContainer = styled.div`
-  padding: 15px 20px 20px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -587,11 +586,11 @@ export const KeycodePane = () => {
         {renderCategories()}
         <LoadSaveContainer>
           <UploadButton onLoad={loadLayout}>
-            <LoadIcon color={'var(--color-white-80)'} width={'1em'} />
+            <LoadIcon color={'var(--color-white-80)'} width={'0.875em'} />
             <IconButtonTooltip>Load</IconButtonTooltip>
           </UploadButton>
           <IconButtonContainer onClick={saveLayout}>
-            <DownloadIcon color={'var(--color-white-80)'} width={'1em'} />
+            <DownloadIcon color={'var(--color-white-80)'} width={'0.875em'} />
             <IconButtonTooltip>Save</IconButtonTooltip>
           </IconButtonContainer>
         </LoadSaveContainer>

@@ -8,7 +8,6 @@ export const Grid = styled.div`
   grid-template-columns: min-content minmax(0, 1fr);
   > div {
     pointer-events: all;
-    scrollbar-gutter: stable;
   }
 `;
 
@@ -18,6 +17,7 @@ export const MenuCell = styled(Cell)``;
 
 export const OverflowCell = styled(Cell)`
   overflow: auto;
+  scrollbar-gutter: stable;
 `;
 
 export const SpanOverflowCell = styled(Cell)`
@@ -31,7 +31,11 @@ export const SubmenuCell = styled(Cell)`
 
 export const SubmenuOverflowCell = styled(SubmenuCell)`
   min-width: 80px;
-  overflow: visible;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 `;
 
 export const SinglePaneFlexCell = styled(Cell)`

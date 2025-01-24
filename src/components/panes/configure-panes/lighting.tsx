@@ -35,9 +35,7 @@ const Container = styled.div`
   padding: 0 12px;
 `;
 
-const MenuContainer = styled.div`
-  padding: 15px 20px 20px 10px;
-`;
+const MenuContainer = styled.div``;
 
 export const Pane = () => {
   const selectedDefinition = useAppSelector(getSelectedDefinition);
