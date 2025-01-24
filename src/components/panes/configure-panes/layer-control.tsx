@@ -39,7 +39,7 @@ const LayerButton = styled.button<{$selected?: boolean}>`
   &:hover {
     border: none;
     background: ${(props) =>
-      props.$selected ? 'auto' : 'var(--color-accent-60)'};
+      props.$selected ? 'auto' : 'var(--color-white-60)'};
   }
 `;
 

@@ -39,7 +39,6 @@ const KeyboardTitle = styled.label`
   color: var(--color_inside-accent);
   padding: 8px 12px;
   margin-right: 10px;
-  border: solid 1px var(--bg_control);
   border-top: none;
   cursor: pointer;
   transition: all 0.1s ease-out;

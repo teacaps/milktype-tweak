@@ -38,6 +38,7 @@ const PaneSelectorContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  padding-top: 32px;
 `;
 
 export const PaneContext = createContext<PaneProps>({
