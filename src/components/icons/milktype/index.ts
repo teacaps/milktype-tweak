@@ -7,4 +7,5 @@ export {component as AudioIcon} from './audio';
 export {component as DisplayIcon} from './display';
 export {component as ChevronDownIcon} from './chevron-down';
 export {component as PlusIcon} from './plus';
+export {component as MicrochipIcon} from './microchip';
 export {TweakLogo as TweakLogo} from './tweak';

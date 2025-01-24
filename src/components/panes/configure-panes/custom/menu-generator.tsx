@@ -1,4 +1,3 @@
-import {faMicrochip} from '@fortawesome/free-solid-svg-icons';
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import {OverflowCell, SubmenuCell, SubmenuRow} from '../../grid';
@@ -23,6 +22,7 @@ import {
   AudioIcon,
   DisplayIcon,
   LightbulbIcon,
+  MicrochipIcon,
 } from '../../../icons/milktype/index';
 
 type Category = {
@@ -252,7 +252,7 @@ const iconKeywords = [
 
 const getIconFromLabel = (menu: VIAMenu) => {
   const label = menu.label.toLowerCase();
-  const defaultIcon = {icon: faMicrochip};
+  const defaultIcon = {icon: MicrochipIcon};
   return (
     iconKeywords.find((icon) =>
       icon.keywords.some((keyword) => label.includes(keyword)),
