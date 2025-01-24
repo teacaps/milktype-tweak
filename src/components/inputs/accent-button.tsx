@@ -6,41 +6,34 @@ type AccentButtonProps = {
 };
 
 const AccentButtonBase = styled.button<AccentButtonProps>`
-  height: 40px;
+  height: 36px;
   padding: 0 15px;
-  line-height: 40px;
   min-width: 100px;
-  text-align: center;
   outline: none;
+  border: 0;
   font-size: 20px;
-  border-radius: 5px;
+  border-radius: 16px;
   color: var(--color_accent);
-  border: 1px solid var(--color_accent);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   box-sizing: border-box;
   pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
-
-  &:hover {
-    border: 1px solid var(--color_accent);
-  }
 `;
 export const AccentButton = styled(AccentButtonBase)`
   background-color: ${(props) =>
-    props.disabled ? 'var(--bg_control-disabled)' : 'var(--bg_outside-accent)'};
+    props.disabled ? 'var(--color-dark-100)' : 'var(--color-accent-100)'};
   color: ${(props) =>
-    props.disabled ? 'var(--bg_control)' : 'var(--color_accent)'};
-  border-color: ${(props) =>
-    props.disabled ? 'var(--bg_control)' : 'var(--color_accent)'};
-
+    props.disabled ? 'var(--color-white-60)' : 'var(--color-white-100)'};
   &:hover {
-    filter: brightness(0.7);
+    background-color: ${(props) =>
+      props.disabled ? 'var(--color-dark-100)' : 'var(--color-accent-80)'};
   }
 `;
 export const AccentButtonLarge = styled(AccentButton)`
-  font-size: 24px;
-  line-height: 60px;
-  height: 60px;
+  font-size: 22px;
+  line-height: 48px;
+  height: 48px;
 `;
 
 export const PrimaryAccentButton = styled(AccentButtonBase)`

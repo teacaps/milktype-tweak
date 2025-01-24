@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 const LoadingText = styled.div`
-  font-size: 30px;
-  color: var(--color_label-highlighted);
+  font-size: 22px;
+  color: var(--color-dark-100);
 `;
 
 enum LoadingLabel {
-  Searching = 'Searching for devices...',
-  Loading = 'Loading...',
+  Searching = 'searching for devices...',
+  Loading = 'loading...',
 }
 
 type Props = {

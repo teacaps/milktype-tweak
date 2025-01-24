@@ -37,6 +37,7 @@ import {getConnectedDevices, getSupportedIds} from 'src/store/devicesSlice';
 import {isElectron} from 'src/utils/running-context';
 import {useAppDispatch} from 'src/store/hooks';
 import {getRenderMode, getSelectedTheme} from 'src/store/settingsSlice';
+import {PlusIcon} from '../icons/milktype/index';
 
 const Rows = [
   Keycode,
@@ -160,11 +161,25 @@ const Loader: React.FC<{
   }, [selectedDefinition]);
   return (
     <LoaderPane>
-      {<ChippyLoader theme={theme} progress={loadProgress || null} />}
+      {/*{<ChippyLoader theme={theme} progress={loadProgress || null} />}*/}
+      <p
+        style={{
+          color: 'var(--color-dark-100',
+          fontSize: 22,
+          lineHeight: 1.4,
+          maxWidth: 640,
+          textAlign: 'center',
+          // @ts-expect-error
+          textWrap: 'balance',
+        }}
+      >
+        welcome to tweak! get started by pressing the button below and selecting
+        your milktype keyboard.
+      </p>
       {(showButton || noConnectedDevices) && !noSupportedIds && !isElectron ? (
         <AccentButtonLarge onClick={() => dispatch(reloadConnectedDevices())}>
-          Authorize device
-          <FontAwesomeIcon style={{marginLeft: '10px'}} icon={faPlus} />
+          select keyboard
+          <PlusIcon height={26} width={26} style={{marginLeft: 8}} />
         </AccentButtonLarge>
       ) : (
         <LoadingText isSearching={!selectedDefinition} />
