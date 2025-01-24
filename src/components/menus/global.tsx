@@ -9,12 +9,12 @@ import {CategoryMenuTooltip} from '../inputs/tooltip';
 import {CategoryIconContainer} from '../panes/grid';
 import {ErrorLink, ErrorsPaneConfig} from '../panes/errors';
 import {ExternalLinks} from './external-links';
+import {TweakLogo} from '../icons/milktype';
 
 const Container = styled.div`
   width: 100vw;
   height: 25px;
   padding: 12px 0;
-  border-bottom: 1px solid var(--border_color_cell);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,7 +24,7 @@ const {DEBUG_PROD, MODE, DEV} = import.meta.env;
 const showDebugPane = MODE === 'development' || DEBUG_PROD === 'true' || DEV;
 
 const GlobalContainer = styled(Container)`
-  background: var(--bg_outside-accent);
+  background: var(--color-white-100);
   column-gap: 20px;
 `;
 
@@ -53,9 +53,10 @@ export const UnconnectedGlobalMenu = () => {
   return (
     <React.Fragment>
       <GlobalContainer>
-        <ErrorLink />
-        {Panes}
-        <ExternalLinks />
+        <TweakLogo height={24} />
+        {/*<ErrorLink />*/}
+        {/*{Panes}*/}
+        {/*<ExternalLinks />*/}
       </GlobalContainer>
     </React.Fragment>
   );
