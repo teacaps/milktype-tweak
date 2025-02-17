@@ -18,6 +18,7 @@ export const MenuCell = styled(Cell)``;
 export const OverflowCell = styled(Cell)`
   overflow: auto;
   scrollbar-gutter: stable;
+  padding-top: 28px;
 `;
 
 export const SpanOverflowCell = styled(Cell)`
@@ -30,7 +31,7 @@ export const SubmenuCell = styled(Cell)`
 `;
 
 export const SubmenuOverflowCell = styled(SubmenuCell)`
-  min-width: 80px;
+  min-width: 190px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;

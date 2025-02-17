@@ -120,7 +120,7 @@ const CustomKeycode = styled(Button)`
 `;
 
 const KeycodeContainer = styled.div`
-  padding: 32px 16px;
+  padding: 0px 16px;
 `;
 
 const KeycodeDesc = styled.div`

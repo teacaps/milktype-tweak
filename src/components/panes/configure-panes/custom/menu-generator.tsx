@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {OverflowCell, SubmenuCell, SubmenuRow} from '../../grid';
+import {OverflowCell, SubmenuOverflowCell, SubmenuRow} from '../../grid';
 import {CenterPane, PaneSelector} from '../../pane';
 import {title, component} from '../../../icons/lightbulb';
 import {VIACustomItem} from './custom-control';
@@ -150,7 +150,7 @@ export const Pane: React.FC<Props> = (props: any) => {
 
   return (
     <>
-      <SubmenuCell>
+      <SubmenuOverflowCell>
         <PaneSelector />
         <MenuContainer>
           {menus.map((menu) => (
@@ -163,7 +163,7 @@ export const Pane: React.FC<Props> = (props: any) => {
             </SubmenuRow>
           ))}
         </MenuContainer>
-      </SubmenuCell>
+      </SubmenuOverflowCell>
       <OverflowCell>
         <CustomPane>
           <Container>{SelectedMenu(childProps)}</Container>
