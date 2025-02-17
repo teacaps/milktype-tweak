@@ -1,0 +1,242 @@
+{
+  "name": "Sprout 75",
+  "vendorId": "0x342d",
+  "productId": "0xe4cb",
+  "keycodes": ["qmk_lighting"],
+  "menus": [
+    {
+      "label": "Lighting",
+      "content": [
+        {
+          "label": "Backlight",
+          "content": [
+            {
+              "label": "Brightness",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_qmk_rgb_matrix_brightness", 3, 1]
+            },
+            {
+              "label": "Effect",
+              "type": "dropdown",
+              "content": ["id_qmk_rgb_matrix_effect", 3, 2],
+              "options": [
+                ["Off", 0],
+                ["Solid Color", 1],
+                ["Breathing", 5],
+                ["Left-Right", 13],
+                ["Up-Down", 14],
+                ["Subtle Wave", 27],
+                ["Keypress", 33],
+                ["Heatmap", 31],
+                ["Splash", 44],
+                ["Rainbow Splash", 41]
+              ]
+            },
+            {
+              "showIf": "{id_qmk_rgb_matrix_effect} != 0 && {id_qmk_rgb_matrix_effect} != 1",
+              "label": "Effect Speed",
+              "type": "range",
+              "options": [0, 255],
+              "content": ["id_qmk_rgb_matrix_effect_speed", 3, 3]
+            },
+            {
+              "showIf": "{id_qmk_rgb_matrix_effect} != 13 && {id_qmk_rgb_matrix_effect} != 14 && {id_qmk_rgb_matrix_effect} != 41",
+              "label": "Color",
+              "type": "color",
+              "content": ["id_qmk_rgb_matrix_color", 3, 4]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "matrix": {"rows": 6, "cols": 15},
+  "customKeycodes": [
+    {"name": "BT 1","title": "Bluetooth Device 1"},
+    {"name": "BT 2","title": "Bluetooth Device 2"},
+    {"name": "BT 3","title": "Bluetooth Device 3"},
+    {"name": "BT 4","title": "Bluetooth Device 4"},
+    {"name": "BT 5","title": "Bluetooth Device 5"},
+    {"name": "2.4G","title": "2.4G Wireless"},
+    {"name": "USB","title": "USB"}
+  ],
+  "layouts": {
+    "keymap": [
+        [
+          {
+            "y": 0.25
+          },
+          "0,0",
+          {
+            "x": 0.5
+          },
+          "0,1",
+          "0,2",
+          "0,3",
+          "0,4",
+          {
+            "x": 0.25
+          },
+          "0,5",
+          "0,6",
+          "0,7",
+          "0,8",
+          {
+            "x": 0.25
+          },
+          "0,9",
+          "0,10",
+          "0,11",
+          "0,12",
+          {
+            "x": 0.25
+          },
+          "0,13",
+          {
+            "x": 0.5
+          },
+          "0,14\n\n\n\n\n\n\n\n\ne0"
+        ],
+        [
+          {
+            "y": 0.25
+          },
+          "1,0",
+          "1,1",
+          "1,2",
+          "1,3",
+          "1,4",
+          "1,5",
+          "1,6",
+          "1,7",
+          "1,8",
+          "1,9",
+          "1,10",
+          "1,11",
+          "1,12",
+          {
+            "w": 2.25
+          },
+          "1,13",
+          {
+            "x": 0.5
+          },
+          "1,14"
+        ],
+        [
+          {
+            "w": 1.5
+          },
+          "2,0",
+          "2,1",
+          "2,2",
+          "2,3",
+          "2,4",
+          "2,5",
+          "2,6",
+          "2,7",
+          "2,8",
+          "2,9",
+          "2,10",
+          "2,11",
+          "2,12",
+          {
+            "w": 1.75
+          },
+          "2,13",
+          {
+            "x": 0.5
+          },
+          "2,14"
+        ],
+        [
+          {
+            "w": 1.75
+          },
+          "3,0",
+          "3,1",
+          "3,2",
+          "3,3",
+          "3,4",
+          "3,5",
+          "3,6",
+          "3,7",
+          "3,8",
+          "3,9",
+          "3,10",
+          "3,11",
+          {
+            "w": 2.5
+          },
+          "3,13",
+          {
+            "x": 0.5
+          },
+          "3,14"
+        ],
+        [
+          {
+            "w": 2.25
+          },
+          "4,0",
+          "4,1",
+          "4,2",
+          "4,3",
+          "4,4",
+          "4,5",
+          "4,6",
+          "4,7",
+          "4,8",
+          "4,9",
+          "4,10",
+          {
+            "w": 2
+          },
+          "4,11",
+          {
+            "x": 1.5
+          },
+          "4,14"
+        ],
+        [
+          {
+            "y": -0.75,
+            "x": 14.5
+          },
+          "4,13"
+        ],
+        [
+          {
+            "y": -0.25,
+            "w": 1.25
+          },
+          "5,0",
+          {
+            "w": 1.25
+          },
+          "5,1",
+          {
+            "w": 1.25
+          },
+          "5,2",
+          {
+            "w": 6.5
+          },
+          "5,6",
+          "5,9",
+          "5,10",
+          "5,11"
+        ],
+        [
+          {
+            "y": -0.75,
+            "x": 13.5
+          },
+          "5,12",
+          "5,13",
+          "5,14"
+        ]
+      ]
+  }
+}
