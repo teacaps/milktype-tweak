@@ -28,7 +28,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 0 12px;
+  padding: 28px 12px 0;
 `;
 
 const renderEncoderError = () => {
@@ -110,7 +110,13 @@ export const Pane: FC = () => {
     ccwValue === undefined ||
     cwValue === undefined
   ) {
-    return <SpanOverflowCell>{renderEncoderError()}</SpanOverflowCell>;
+    return (
+      <SpanOverflowCell>
+        <Encoder>
+          <Container>{renderEncoderError()}</Container>
+        </Encoder>
+      </SpanOverflowCell>
+    );
   }
   return (
     <SpanOverflowCell>

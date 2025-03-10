@@ -23,22 +23,21 @@ import {
 
 const AutocompleteContainer = styled.ul`
   position: fixed;
-  background-color: var(--bg_menu);
+  background-color: var(--color-white-80);
   max-height: 210px;
   overflow: auto;
-  border: 1px solid var(--bg_control);
   margin: 0;
   padding: 0;
   width: auto;
   margin-top: -24px;
   line-height: normal;
+  border-radius: 8px;
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.1) 0px 4px 11px;
 `;
 
-const AutocompleteItemRow = styled.li`
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--bg_control);
-  }
-`;
+const AutocompleteItemRow = styled.li``;
 
 type KeycodeModalProps = {
   defaultValue?: number;
@@ -209,7 +208,7 @@ export const KeycodeModal: React.FC<KeycodeModalProps> = (props) => {
           </AutocompleteContainer>
         </div>
         <RowDiv>
-          <AccentButton onClick={props.onExit}>Cancel</AccentButton>
+          <AccentButton onClick={props.onExit}>cancel</AccentButton>
           <PrimaryAccentButton
             disabled={!isValid}
             onClick={() => {
@@ -218,7 +217,7 @@ export const KeycodeModal: React.FC<KeycodeModalProps> = (props) => {
               );
             }}
           >
-            Confirm
+            confirm
           </PrimaryAccentButton>
         </RowDiv>
       </ModalContainer>

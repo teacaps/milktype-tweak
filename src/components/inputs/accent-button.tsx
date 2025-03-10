@@ -16,6 +16,7 @@ const AccentButtonBase = styled.button<AccentButtonProps>`
   color: var(--color_accent);
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   pointer-events: ${(props) => (props.disabled ? 'none' : 'auto')};
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
@@ -36,14 +37,4 @@ export const AccentButtonLarge = styled(AccentButton)`
   height: 48px;
 `;
 
-export const PrimaryAccentButton = styled(AccentButtonBase)`
-  color: ${(props) =>
-    props.disabled ? 'var(--bg_control)' : 'var(--color_inside-accent)'};
-  border-color: ${(props) =>
-    props.disabled ? 'var(--bg_control)' : 'var(--color_accent)'};
-  background-color: ${(props) =>
-    props.disabled ? 'transparent' : 'var(--color_accent)'};
-  &:hover {
-    filter: brightness(0.7);
-  }
-`;
+export const PrimaryAccentButton = AccentButton;
