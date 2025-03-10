@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "milktype tweak",
+    "short_name": "tweak",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#dadada",
-    "background_color": "#dadada",
+    "theme_color": "#E2794C",
+    "background_color": "#F8E3D8",
     "display": "standalone"
 }
